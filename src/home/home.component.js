@@ -1,14 +1,18 @@
 import React, { PureComponent } from 'react';
 import {
-  StyleSheet, View, Text,
+  StyleSheet, View, Text, TouchableOpacity,
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 
 export default class Home extends PureComponent {
   render() {
     return (
       <View style={styles.body}>
-        <Text style={styles.sectionTitle}>Home</Text>
+        <Text style={styles.sectionTitle}>Welcome to the Trivia Challenge!</Text>
+        <TouchableOpacity onPress={Actions.quiz}>
+          <Text>BEGIN</Text>
+        </TouchableOpacity>
       </View>
     );
   }
