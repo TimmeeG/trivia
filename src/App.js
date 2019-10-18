@@ -1,27 +1,19 @@
 import React from 'react';
-import {
-  SafeAreaView, StyleSheet, View, Text,
-} from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
+
+import { Navigation } from './navigation';
 
 
 const App = () => (
-  <SafeAreaView>
-    <View style={styles.body}>
-      <Text style={styles.sectionTitle}>Step One</Text>
-    </View>
+  <SafeAreaView style={styles.flexOne}>
+    <Navigation />
   </SafeAreaView>
 );
 
 const styles = StyleSheet.create({
-  body: {
-    backgroundColor: 'white',
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: 'black',
+  flexOne: {
+    flex: 1,
   },
 });
-
 
 export default App;
