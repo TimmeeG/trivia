@@ -8,37 +8,35 @@ import PropTypes from 'prop-types';
 import Text from '../_shared/text/text.component';
 import colors from '../_shared/colors';
 
+const renderQuestion = (question) => (
+  <View style={styles.questionContainer}>
+    {question.isCorrect
+      ? <Icon name="plus" size={30} color={colors.green} />
+      : <Icon name="minus" size={30} color={colors.red} />}
+    <Text style={styles.questionText}>
+      {question.question}
+    </Text>
+  </View>
+);
+
 export default class Results extends PureComponent {
   componentDidMount() {
     Icon.loadFont();
   }
 
-  renderQuestion(question) {
-    console.log(question);
-    return (
-      <View>
-        <Icon name="rocket" size={30} color="#900" />
-        <Text>{question.question}</Text>
-      </View>
-    );
-  }
-
   render() {
     const { questions } = this.props;
+
     const correctNumber = questions.filter((x) => x.isCorrect).length;
+    const resultsString = `${correctNumber}/${questions.length}`;
 
     return (
       <View style={styles.body}>
         <Text style={styles.sectionTitle}>You Scored</Text>
-        <Text style={styles.sectionTitle}>
-          {correctNumber}
-            /
-          {questions.length}
-        </Text>
-
+        <Text style={styles.sectionTitle}>{resultsString}</Text>
         <FlatList
           data={questions}
-          renderItem={({ item }) => this.renderQuestion(item)}
+          renderItem={({ item }) => renderQuestion(item)}
           keyExtractor={(item, i) => i}
         />
         <TouchableOpacity onPress={() => Actions.popTo('home')}>
@@ -59,6 +57,16 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: colors.black,
     textAlign: 'center',
+  },
+  questionContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
+    paddingHorizontal: 10,
+  },
+  questionText: {
+    marginHorizontal: 10,
+    fontSize: 18,
   },
 });
 
