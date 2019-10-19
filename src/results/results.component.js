@@ -22,20 +22,43 @@ const renderQuestion = (question) => (
 );
 
 export default class Results extends PureComponent {
+  constructor(props) {
+    super();
+    this.state = {
+      correct: props.questions.filter((x) => x.isCorrect).length,
+    };
+  }
+
   componentDidMount() {
     Icon.loadFont();
+    const { updateLifetimeStats, questions } = this.props;
+    const { correct } = this.state;
+
+    const info = {
+      correct,
+      incorrect: questions.length - correct,
+    };
+
+    updateLifetimeStats(info);
   }
 
   render() {
-    const { questions } = this.props;
+    const {
+      questions, clearLifetimeStats, totalIncorrect, totalCorrect,
+    } = this.props;
 
     const correctNumber = questions.filter((x) => x.isCorrect).length;
     const resultsString = `${correctNumber}/${questions.length}`;
+    const lifetimeResultsString = `${totalCorrect}/${totalCorrect + totalIncorrect}`;
 
     return (
       <View style={styles.body}>
         <Text style={styles.sectionTitle}>You Scored</Text>
         <Text style={styles.sectionTitle}>{resultsString}</Text>
+        <Text style={styles.sectionTitle}>{lifetimeResultsString}</Text>
+        <TouchableOpacity onPress={() => clearLifetimeStats()}>
+          <Text>CLEAR</Text>
+        </TouchableOpacity>
         <FlatList
           data={questions}
           renderItem={({ item }) => renderQuestion(item)}
@@ -87,4 +110,8 @@ const styles = StyleSheet.create({
 
 Results.propTypes = {
   questions: PropTypes.arrayOf.isRequired,
+  updateLifetimeStats: PropTypes.func.isRequired,
+  clearLifetimeStats: PropTypes.func.isRequired,
+  totalCorrect: PropTypes.number.isRequired,
+  totalIncorrect: PropTypes.number.isRequired,
 };

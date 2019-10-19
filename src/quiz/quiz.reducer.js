@@ -41,7 +41,9 @@ export const quizReducer = (state = initialState, action) => {
       newQuestions[index].userAnswer = answer;
       newQuestions[index].isCorrect = answer === newQuestions[index].correct_answer;
 
-      if (index === state.questions.length) Actions.results();
+      if (index + 1 === state.questions.length) {
+        Actions.results();
+      }
 
       return {
         ...state,

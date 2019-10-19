@@ -11,10 +11,12 @@ export const resultsReducer = (state = initialState, action) => {
     case 'CLEAR_LIFETIME_STATS':
       return { ...initialState };
     case 'UPDATE_LIFETIME_STATS':
+
+
       return {
         ...state,
-        totalCorrect: state.totalCorrect + action.correct,
-        totalIncorrect: state.totalIncorrect + action.incorrect,
+        totalCorrect: state.totalCorrect + action.payload.correct,
+        totalIncorrect: state.totalIncorrect + action.payload.incorrect,
       };
   }
 };

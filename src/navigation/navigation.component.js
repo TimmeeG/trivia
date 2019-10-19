@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { Scene, Router, Stack } from 'react-native-router-flux';
 import Home from '../home/home.container';
 import Quiz from '../quiz/quiz.container';
-import Results from '../results/results.component';
+import Results from '../results/results.container';
 
 export default class Navigation extends PureComponent {
   render() {
