@@ -15,7 +15,7 @@ export default class CustomText extends PureComponent {
 
 CustomText.propTypes = {
   children: PropTypes.string.isRequired,
-  style: PropTypes.shape,
+  style: Text.propTypes.style,
 };
 
 CustomText.defaultProps = {
