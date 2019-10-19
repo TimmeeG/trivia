@@ -7,9 +7,10 @@ import colors from '../_shared/colors';
 import {Item} from '../_shared/questionTypes/trueOrFalse.component';
 import {QUESTION_TYPES} from '../_shared/constants';
 
-interface Question extends Item {
+export interface Question extends Item {
   type: string;
   category: string;
+  isCorrect: boolean;
 }
 
 interface State {

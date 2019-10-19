@@ -1,13 +1,17 @@
 import {Actions} from 'react-native-router-flux';
 
-interface Questions {
+interface Question {
   userAnswer: string;
   isCorrect: boolean;
   correct_answer: string;
+  question: string;
+  incorrect_answers: Array<string>;
+  type: string;
+  category: string;
 }
 
-interface QuizState {
-  questions: Array<Questions>;
+export interface QuizState {
+  questions: Array<Question>;
   loading: boolean;
   error: string;
 }

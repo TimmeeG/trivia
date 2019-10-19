@@ -1,9 +1,15 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import ResultsComponent from './results.component';
-import { clearLifetimeStats, updateLifetimeStats } from './results.actions';
+import {QuizState} from '../quiz/quiz.reducer';
+import {clearLifetimeStats, updateLifetimeStats} from './results.actions';
 
-const mapStateToProps = (state) => {
-  const { quizReducer, resultsReducer } = state;
+interface State {
+  quizReducer: QuizState;
+  resultsReducer: Object;
+}
+
+const mapStateToProps = (state: State) => {
+  const {quizReducer, resultsReducer} = state;
   return {
     questions: quizReducer.questions,
     ...resultsReducer,
@@ -12,7 +18,7 @@ const mapStateToProps = (state) => {
 
 const Results = connect(
   mapStateToProps,
-  { clearLifetimeStats, updateLifetimeStats },
+  {clearLifetimeStats, updateLifetimeStats},
 )(ResultsComponent);
 
 export default Results;

@@ -1,9 +1,24 @@
-const initialState = {
+interface ResultsState {
+  totalCorrect: number;
+  totalIncorrect: number;
+}
+
+const initialState: ResultsState = {
   totalCorrect: 0,
   totalIncorrect: 0,
 };
 
-export const resultsReducer = (state = initialState, action) => {
+interface ResultsAction {
+  type: string;
+  payload: ResultsActionPayload;
+}
+
+export interface ResultsActionPayload {
+  correct: number;
+  incorrect: number;
+}
+
+export const resultsReducer = (state = initialState, action: ResultsAction) => {
   switch (action.type) {
     default:
       return state;

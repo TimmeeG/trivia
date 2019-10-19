@@ -1,12 +1,14 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {StyleSheet, View, TouchableOpacity, FlatList} from 'react-native';
 import {Actions} from 'react-native-router-flux';
+import {Question} from '../quiz/quiz.component';
+import {ResultsActionPayload} from './results.reducer';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Text from '../_shared/text/text.component';
 import colors from '../_shared/colors';
 
-const renderQuestion = question => (
+const renderQuestion = (question: Question) => (
   <View style={styles.questionContainer}>
     {question.isCorrect ? (
       <Icon name="plus" size={18} color={colors.green} />
@@ -19,9 +21,26 @@ const renderQuestion = question => (
   </View>
 );
 
-export default class Results extends PureComponent {
-  constructor(props) {
-    super();
+interface MapProps {
+  questions: Array<Question>;
+  totalCorrect: number;
+  totalIncorrect: number;
+}
+
+interface State {
+  correct: number;
+}
+
+interface DispatchProps {
+  updateLifetimeStats: (info: ResultsActionPayload) => void;
+  clearLifetimeStats: () => void;
+}
+
+type Props = DispatchProps & MapProps;
+
+export default class Results extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
     this.state = {
       correct: props.questions.filter(x => x.isCorrect).length,
     };
@@ -64,7 +83,7 @@ export default class Results extends PureComponent {
         <FlatList
           data={questions}
           renderItem={({item}) => renderQuestion(item)}
-          keyExtractor={(item, i) => i}
+          keyExtractor={(item, i) => i.toString()}
         />
         <TouchableOpacity
           onPress={() => Actions.popTo('home')}
