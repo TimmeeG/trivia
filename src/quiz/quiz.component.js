@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
-import Question from '../_shared/question/question.component';
+import TrueOrFalse from '../_shared/questionTypes/trueOrFalse.component';
 import Text from '../_shared/text/text.component';
 import colors from '../_shared/colors';
 
@@ -13,10 +13,12 @@ export default class Quiz extends PureComponent {
       questions: props.questions,
       questionIndex: 0,
     };
+    this.answeredWith = this.answeredWith.bind(this);
   }
 
   answeredWith(answer) {
     const { questionIndex, questions } = this.state;
+
     const newQuestions = questions;
 
     newQuestions[questionIndex].userAnswer = answer;
@@ -26,16 +28,13 @@ export default class Quiz extends PureComponent {
       questions: newQuestions,
       questionIndex: questionIndex + 1,
     });
-
-    if (questionIndex + 1 === 10) {
-      Actions.results({ questions });
-    }
   }
 
   render() {
     const { questions, questionIndex } = this.state;
 
     if (questionIndex === questions.length) {
+      Actions.results({ questions });
       return <View />;
     }
 
@@ -44,11 +43,7 @@ export default class Quiz extends PureComponent {
     return (
       <View style={styles.body}>
         <Text style={styles.sectionTitle}>{activeQuestion.category}</Text>
-        <Question statement={activeQuestion.question} />
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-          <TouchableOpacity onPress={() => this.answeredWith('False')}><Text>False</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => this.answeredWith('True')}><Text>True</Text></TouchableOpacity>
-        </View>
+        {activeQuestion.type === 'boolean' && <TrueOrFalse statement={activeQuestion.question} answeredWith={this.answeredWith} />}
       </View>
     );
   }
