@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Question from '../_shared/question/question.component';
+import Text from '../_shared/text/text.component';
 
 export default class Quiz extends PureComponent {
   render() {

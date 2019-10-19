@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
-import {
-  StyleSheet, View, Text, TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import Text from '../_shared/text/text.component';
 
 
 export default class Home extends PureComponent {
