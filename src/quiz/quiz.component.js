@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import TrueOrFalse from '../_shared/questionTypes/trueOrFalse.component';
 import Text from '../_shared/text/text.component';
 import colors from '../_shared/colors';
+import { QUESTION_TYPES } from '../_shared/constants';
 
 export default class Quiz extends PureComponent {
   constructor(props) {
@@ -30,6 +31,15 @@ export default class Quiz extends PureComponent {
     });
   }
 
+  selectQuestionType(activeQuestion) {
+    switch (activeQuestion.type) {
+      case QUESTION_TYPES.BOOLEAN:
+        return <TrueOrFalse item={activeQuestion} answeredWith={this.answeredWith} />;
+      default:
+        return <TrueOrFalse item={activeQuestion} answeredWith={this.answeredWith} />;
+    }
+  }
+
   render() {
     const { questions, questionIndex } = this.state;
 
@@ -43,7 +53,7 @@ export default class Quiz extends PureComponent {
     return (
       <View style={styles.body}>
         <Text style={styles.sectionTitle}>{activeQuestion.category}</Text>
-        {activeQuestion.type === 'boolean' && <TrueOrFalse statement={activeQuestion.question} answeredWith={this.answeredWith} />}
+        {this.selectQuestionType(activeQuestion)}
       </View>
     );
   }

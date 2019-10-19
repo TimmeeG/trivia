@@ -9,16 +9,23 @@ const { width } = Dimensions.get('screen');
 
 export default class TrueOrFalse extends PureComponent {
   render() {
-    const { statement } = this.props;
+    const { item, answeredWith } = this.props;
+    const { question, correct_answer, incorrect_answers } = item;
+    const possibleAnswers = [...incorrect_answers, correct_answer].sort();
 
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.view}>
-          <Text style={styles.question}>{statement}</Text>
+          <Text style={styles.question}>{question}</Text>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-          <TouchableOpacity onPress={() => this.props.answeredWith('False')}><Text>False</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.answeredWith('True')}><Text>True</Text></TouchableOpacity>
+          {possibleAnswers.map(
+            (x) => (
+              <TouchableOpacity onPress={() => answeredWith(x)}>
+                <Text>{x}</Text>
+              </TouchableOpacity>
+            ),
+          )}
         </View>
       </View>
     );
@@ -42,5 +49,6 @@ const styles = StyleSheet.create({
 });
 
 TrueOrFalse.propTypes = {
-  statement: PropTypes.string.isRequired,
+  item: PropTypes.shape.isRequired,
+  answeredWith: PropTypes.func.isRequired,
 };
