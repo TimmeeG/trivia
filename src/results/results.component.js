@@ -39,7 +39,7 @@ export default class Results extends PureComponent {
           renderItem={({ item }) => renderQuestion(item)}
           keyExtractor={(item, i) => i}
         />
-        <TouchableOpacity onPress={() => Actions.popTo('home')}>
+        <TouchableOpacity onPress={() => Actions.popTo('home')} style={styles.playAgainContainer}>
           <Text>Play Again?</Text>
         </TouchableOpacity>
       </View>
@@ -67,6 +67,12 @@ const styles = StyleSheet.create({
   questionText: {
     marginHorizontal: 10,
     fontSize: 18,
+  },
+  playAgainContainer: {
+    height: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
   },
 });
 

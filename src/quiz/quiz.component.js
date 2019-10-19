@@ -52,7 +52,9 @@ export default class Quiz extends PureComponent {
 
     return (
       <View style={styles.body}>
-        <Text style={styles.sectionTitle}>{activeQuestion.category}</Text>
+        <View style={styles.categoryContainer}>
+          <Text style={styles.sectionTitle}>{activeQuestion.category}</Text>
+        </View>
         {this.selectQuestionType(activeQuestion)}
       </View>
     );
@@ -63,6 +65,11 @@ const styles = StyleSheet.create({
   body: {
     backgroundColor: colors.white,
     flex: 1,
+  },
+  categoryContainer: {
+    height: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   sectionTitle: {
     fontSize: 24,
