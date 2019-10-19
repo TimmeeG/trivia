@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Text } from 'react-native';
 import PropTypes from 'prop-types';
+import colors from '../colors';
 
 export default class CustomText extends PureComponent {
   render() {
@@ -20,6 +21,6 @@ CustomText.propTypes = {
 CustomText.defaultProps = {
   style: {
     fontSize: 24,
-    color: 'black',
+    color: colors.black,
   },
 };
