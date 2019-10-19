@@ -45,6 +45,8 @@ export default class Quiz extends PureComponent {
     if (questionIndex === questions.length) {
       return <View />;
     }
+    console.log(questionIndex);
+    console.log(questions);
 
     const activeQuestion = questions[questionIndex];
 

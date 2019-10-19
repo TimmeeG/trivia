@@ -1,9 +1,17 @@
 import React, {PureComponent} from 'react';
 import {Text} from 'react-native';
 import he from 'he';
-import colors from '../colors';
 
-export default class CustomText extends PureComponent {
+interface State {}
+
+interface OwnProps {
+  children: string;
+  style: Object;
+}
+
+type Props = OwnProps;
+
+export default class CustomText extends PureComponent<Props, State> {
   render() {
     const {children, style} = this.props;
 
