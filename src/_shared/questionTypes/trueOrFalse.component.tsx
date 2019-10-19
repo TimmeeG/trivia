@@ -4,7 +4,22 @@ import Text from '../text/text.component';
 
 const {width} = Dimensions.get('screen');
 
-export default class TrueOrFalse extends PureComponent {
+interface State {}
+
+interface Item {
+  question: string;
+  correct_answer: string;
+  incorrect_answers: Array<string>;
+}
+
+interface OwnProps {
+  item: Item;
+  answeredWith: Function;
+}
+
+type Props = OwnProps;
+
+export default class TrueOrFalse extends PureComponent<Props, State> {
   render() {
     const {item, answeredWith} = this.props;
     const {question, correct_answer, incorrect_answers} = item;

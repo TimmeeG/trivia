@@ -6,7 +6,7 @@ interface State {}
 
 interface OwnProps {
   children: string;
-  style: Object;
+  style?: Object;
 }
 
 type Props = OwnProps;
