@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import {Actions} from 'react-native-router-flux';
 
 const initialState = {

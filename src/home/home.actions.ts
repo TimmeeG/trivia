@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import {getResponse} from '../_shared/api';
 import {ThunkAction} from 'redux-thunk';
 import {AppState} from 'react-native';

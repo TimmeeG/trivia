@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 const initialState = {
   totalCorrect: 0,
   totalIncorrect: 0,
@@ -9,10 +8,8 @@ export const resultsReducer = (state = initialState, action) => {
     default:
       return state;
     case 'CLEAR_LIFETIME_STATS':
-      return { ...initialState };
+      return {...initialState};
     case 'UPDATE_LIFETIME_STATS':
-
-
       return {
         ...state,
         totalCorrect: state.totalCorrect + action.payload.correct,

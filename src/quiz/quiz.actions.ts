@@ -1,5 +1,4 @@
-/* eslint-disable import/prefer-default-export */
-export const updateQuestion = (info) => async (dispatch) => {
+export const updateQuestion = info => async dispatch => {
   dispatch(newQuestionDetails(info));
 };
 

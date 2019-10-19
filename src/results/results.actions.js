@@ -1,5 +1,4 @@
-/* eslint-disable import/prefer-default-export */
-export const updateLifetimeStats = (info) => async (dispatch) => {
+export const updateLifetimeStats = info => async dispatch => {
   dispatch(newLifetimeStats(info));
 };
 
@@ -10,7 +9,7 @@ function newLifetimeStats(info) {
   };
 }
 
-export const clearLifetimeStats = () => async (dispatch) => {
+export const clearLifetimeStats = () => async dispatch => {
   dispatch(clearUserStats());
 };
 
