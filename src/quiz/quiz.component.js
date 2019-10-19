@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import TrueOrFalse from '../_shared/questionTypes/trueOrFalse.component';
 import Text from '../_shared/text/text.component';
@@ -40,7 +39,6 @@ export default class Quiz extends PureComponent {
     const { questions } = this.props;
 
     if (questionIndex === questions.length) {
-      Actions.results({ questions });
       return <View />;
     }
 

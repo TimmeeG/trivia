@@ -1,4 +1,6 @@
 /* eslint-disable import/prefer-default-export */
+import { Actions } from 'react-native-router-flux';
+
 const initialState = {
   questions: [],
   loading: false,
@@ -38,6 +40,8 @@ export const quizReducer = (state = initialState, action) => {
       const newQuestions = state.questions;
       newQuestions[index].userAnswer = answer;
       newQuestions[index].isCorrect = answer === newQuestions[index].correct_answer;
+
+      if (index === state.questions.length) Actions.results();
 
       return {
         ...state,
