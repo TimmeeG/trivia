@@ -11,11 +11,13 @@ import colors from '../_shared/colors';
 const renderQuestion = (question) => (
   <View style={styles.questionContainer}>
     {question.isCorrect
-      ? <Icon name="plus" size={30} color={colors.green} />
-      : <Icon name="minus" size={30} color={colors.red} />}
-    <Text style={styles.questionText}>
-      {question.question}
-    </Text>
+      ? <Icon name="plus" size={18} color={colors.green} />
+      : <Icon name="minus" size={18} color={colors.red} />}
+    <View style={styles.questionTextContainer}>
+      <Text style={styles.questionText}>
+        {question.question}
+      </Text>
+    </View>
   </View>
 );
 
@@ -60,9 +62,16 @@ const styles = StyleSheet.create({
   },
   questionContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
     width: '90%',
     paddingHorizontal: 10,
+    marginVertical: 2,
+    minHeight: 50,
+  },
+  questionTextContainer: {
+    justifyContent: 'flex-start',
+    width: '100%',
   },
   questionText: {
     marginHorizontal: 10,

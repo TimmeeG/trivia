@@ -21,7 +21,7 @@ export default class TrueOrFalse extends PureComponent {
         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
           {possibleAnswers.map(
             (x) => (
-              <TouchableOpacity onPress={() => answeredWith(x)}>
+              <TouchableOpacity key={`answer-${x}`} onPress={() => answeredWith(x)}>
                 <Text>{x}</Text>
               </TouchableOpacity>
             ),
@@ -49,6 +49,6 @@ const styles = StyleSheet.create({
 });
 
 TrueOrFalse.propTypes = {
-  item: PropTypes.shape.isRequired,
+  item: PropTypes.object.isRequired,
   answeredWith: PropTypes.func.isRequired,
 };

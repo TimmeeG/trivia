@@ -31,5 +31,18 @@ export const quizReducer = (state = initialState, action) => {
         error: '',
       };
     }
+    case 'UPDATE_QUESTION': {
+      const { payload } = action;
+      const { index, answer } = payload;
+
+      const newQuestions = state.questions;
+      newQuestions[index].userAnswer = answer;
+      newQuestions[index].isCorrect = answer === newQuestions[index].correct_answer;
+
+      return {
+        ...state,
+        questions: newQuestions,
+      };
+    }
   }
 };
