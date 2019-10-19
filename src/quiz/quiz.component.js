@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import TrueOrFalse from '../_shared/questionTypes/trueOrFalse.component';
 import Text from '../_shared/text/text.component';
@@ -8,25 +7,20 @@ import colors from '../_shared/colors';
 import { QUESTION_TYPES } from '../_shared/constants';
 
 export default class Quiz extends PureComponent {
-  constructor(props) {
+  constructor() {
     super();
     this.state = {
-      questions: props.questions,
       questionIndex: 0,
     };
     this.answeredWith = this.answeredWith.bind(this);
   }
 
   answeredWith(answer) {
-    const { questionIndex, questions } = this.state;
+    const { questionIndex } = this.state;
+    const { updateQuestion } = this.props;
 
-    const newQuestions = questions;
-
-    newQuestions[questionIndex].userAnswer = answer;
-    newQuestions[questionIndex].isCorrect = newQuestions[questionIndex].correct_answer === answer;
-
+    updateQuestion({ index: questionIndex, answer });
     this.setState({
-      questions: newQuestions,
       questionIndex: questionIndex + 1,
     });
   }
@@ -41,10 +35,10 @@ export default class Quiz extends PureComponent {
   }
 
   render() {
-    const { questions, questionIndex } = this.state;
+    const { questionIndex } = this.state;
+    const { questions } = this.props;
 
     if (questionIndex === questions.length) {
-      Actions.results({ questions });
       return <View />;
     }
 
@@ -80,5 +74,6 @@ const styles = StyleSheet.create({
 });
 
 Quiz.propTypes = {
-  questions: PropTypes.arrayOf.isRequired,
+  questions: PropTypes.array.isRequired,
+  updateQuestion: PropTypes.func.isRequired,
 };

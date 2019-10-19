@@ -11,29 +11,54 @@ import colors from '../_shared/colors';
 const renderQuestion = (question) => (
   <View style={styles.questionContainer}>
     {question.isCorrect
-      ? <Icon name="plus" size={30} color={colors.green} />
-      : <Icon name="minus" size={30} color={colors.red} />}
-    <Text style={styles.questionText}>
-      {question.question}
-    </Text>
+      ? <Icon name="plus" size={18} color={colors.green} />
+      : <Icon name="minus" size={18} color={colors.red} />}
+    <View style={styles.questionTextContainer}>
+      <Text style={styles.questionText}>
+        {question.question}
+      </Text>
+    </View>
   </View>
 );
 
 export default class Results extends PureComponent {
+  constructor(props) {
+    super();
+    this.state = {
+      correct: props.questions.filter((x) => x.isCorrect).length,
+    };
+  }
+
   componentDidMount() {
     Icon.loadFont();
+    const { updateLifetimeStats, questions } = this.props;
+    const { correct } = this.state;
+
+    const info = {
+      correct,
+      incorrect: questions.length - correct,
+    };
+
+    updateLifetimeStats(info);
   }
 
   render() {
-    const { questions } = this.props;
+    const {
+      questions, clearLifetimeStats, totalIncorrect, totalCorrect,
+    } = this.props;
 
     const correctNumber = questions.filter((x) => x.isCorrect).length;
     const resultsString = `${correctNumber}/${questions.length}`;
+    const lifetimeResultsString = `${totalCorrect}/${totalCorrect + totalIncorrect}`;
 
     return (
       <View style={styles.body}>
         <Text style={styles.sectionTitle}>You Scored</Text>
         <Text style={styles.sectionTitle}>{resultsString}</Text>
+        <Text style={styles.sectionTitle}>{lifetimeResultsString}</Text>
+        <TouchableOpacity onPress={() => clearLifetimeStats()}>
+          <Text>CLEAR</Text>
+        </TouchableOpacity>
         <FlatList
           data={questions}
           renderItem={({ item }) => renderQuestion(item)}
@@ -60,9 +85,16 @@ const styles = StyleSheet.create({
   },
   questionContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
     width: '90%',
     paddingHorizontal: 10,
+    marginVertical: 2,
+    minHeight: 50,
+  },
+  questionTextContainer: {
+    justifyContent: 'flex-start',
+    width: '100%',
   },
   questionText: {
     marginHorizontal: 10,
@@ -78,4 +110,8 @@ const styles = StyleSheet.create({
 
 Results.propTypes = {
   questions: PropTypes.arrayOf.isRequired,
+  updateLifetimeStats: PropTypes.func.isRequired,
+  clearLifetimeStats: PropTypes.func.isRequired,
+  totalCorrect: PropTypes.number.isRequired,
+  totalIncorrect: PropTypes.number.isRequired,
 };
