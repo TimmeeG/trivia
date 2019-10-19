@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
-import { StyleSheet, View } from 'react-native';
-import PropTypes from 'prop-types';
+import React, {PureComponent} from 'react';
+import {StyleSheet, View} from 'react-native';
+
 import TrueOrFalse from '../_shared/questionTypes/trueOrFalse.component';
 import Text from '../_shared/text/text.component';
 import colors from '../_shared/colors';
-import { QUESTION_TYPES } from '../_shared/constants';
+import {QUESTION_TYPES} from '../_shared/constants';
 
 export default class Quiz extends PureComponent {
   constructor() {
@@ -16,10 +16,10 @@ export default class Quiz extends PureComponent {
   }
 
   answeredWith(answer) {
-    const { questionIndex } = this.state;
-    const { updateQuestion } = this.props;
+    const {questionIndex} = this.state;
+    const {updateQuestion} = this.props;
 
-    updateQuestion({ index: questionIndex, answer });
+    updateQuestion({index: questionIndex, answer});
     this.setState({
       questionIndex: questionIndex + 1,
     });
@@ -28,15 +28,19 @@ export default class Quiz extends PureComponent {
   selectQuestionType(activeQuestion) {
     switch (activeQuestion.type) {
       case QUESTION_TYPES.BOOLEAN:
-        return <TrueOrFalse item={activeQuestion} answeredWith={this.answeredWith} />;
+        return (
+          <TrueOrFalse item={activeQuestion} answeredWith={this.answeredWith} />
+        );
       default:
-        return <TrueOrFalse item={activeQuestion} answeredWith={this.answeredWith} />;
+        return (
+          <TrueOrFalse item={activeQuestion} answeredWith={this.answeredWith} />
+        );
     }
   }
 
   render() {
-    const { questionIndex } = this.state;
-    const { questions } = this.props;
+    const {questionIndex} = this.state;
+    const {questions} = this.props;
 
     if (questionIndex === questions.length) {
       return <View />;
@@ -72,8 +76,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-Quiz.propTypes = {
-  questions: PropTypes.array.isRequired,
-  updateQuestion: PropTypes.func.isRequired,
-};

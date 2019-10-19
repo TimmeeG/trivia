@@ -1,19 +1,27 @@
 /* eslint-disable import/prefer-default-export */
-import { getResponse } from '../_shared/api';
+import {getResponse} from '../_shared/api';
+import {ThunkAction} from 'redux-thunk';
+import {AppState} from 'react-native';
+import {AnyAction} from 'redux';
 
-export const getQuestions = () => async (dispatch) => {
+export const getQuestions = (): ThunkAction<
+  void,
+  AppState,
+  null,
+  AnyAction
+> => async dispatch => {
   dispatch(questionsRequested());
 
   const baseUrl = 'https://opentdb.com/api.php';
   const queryParams = [
-    { param: 'amount', value: 10 },
-    { param: 'difficulty', value: 'hard' },
-    { param: 'type', value: 'boolean' }];
-
+    {param: 'amount', value: 10},
+    {param: 'difficulty', value: 'hard'},
+    {param: 'type', value: 'boolean'},
+  ];
 
   getResponse(baseUrl, queryParams)
-    .then((response) => dispatch(questionsFulfilled(response.results)))
-    .catch((err) => dispatch(questionsRejected()));
+    .then((response: Response) => dispatch(questionsFulfilled(response)))
+    .catch((err: Object) => dispatch(questionsRejected()));
 };
 
 function questionsRequested() {
@@ -28,7 +36,7 @@ function questionsRejected() {
   };
 }
 
-function questionsFulfilled(response) {
+function questionsFulfilled(response: object) {
   return {
     type: 'QUESTIONS_FULFILLED',
     payload: response,

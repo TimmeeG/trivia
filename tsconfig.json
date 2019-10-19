@@ -3,6 +3,7 @@
     "target": "es2015",
     "module": "es2015",
     "noEmit": true,
+    "skipLibCheck": true,
     "sourceMap": true,
     "experimentalDecorators": true,
     "jsx": "react-native",
