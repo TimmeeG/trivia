@@ -7,9 +7,12 @@ import colors from '../_shared/colors';
 
 
 export default class Home extends Component {
-  state =  { 
-    questions: [],
-  };
+  constructor() {
+    super();
+    this.state = {
+      questions: [],
+    };
+  }
 
   async componentDidMount() {
     const baseUrl = 'https://opentdb.com/api.php';
