@@ -1,38 +1,55 @@
-import React, { PureComponent } from 'react';
-import {
-  StyleSheet, View, TouchableOpacity, FlatList,
-} from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import React, {Component} from 'react';
+import {StyleSheet, View, TouchableOpacity, FlatList} from 'react-native';
+import {Actions} from 'react-native-router-flux';
+import {Question} from '../quiz/quiz.component';
+import {ResultsActionPayload} from './results.reducer';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import PropTypes from 'prop-types';
+
 import Text from '../_shared/text/text.component';
 import colors from '../_shared/colors';
 
-const renderQuestion = (question) => (
+const renderQuestion = (question: Question) => (
   <View style={styles.questionContainer}>
-    {question.isCorrect
-      ? <Icon name="plus" size={18} color={colors.green} />
-      : <Icon name="minus" size={18} color={colors.red} />}
+    {question.isCorrect ? (
+      <Icon name="plus" size={18} color={colors.green} />
+    ) : (
+      <Icon name="minus" size={18} color={colors.red} />
+    )}
     <View style={styles.questionTextContainer}>
-      <Text style={styles.questionText}>
-        {question.question}
-      </Text>
+      <Text style={styles.questionText}>{question.question}</Text>
     </View>
   </View>
 );
 
-export default class Results extends PureComponent {
-  constructor(props) {
-    super();
+interface MapProps {
+  questions: Array<Question>;
+  totalCorrect: number;
+  totalIncorrect: number;
+}
+
+interface State {
+  correct: number;
+}
+
+interface DispatchProps {
+  updateLifetimeStats: (info: ResultsActionPayload) => void;
+  clearLifetimeStats: () => void;
+}
+
+type Props = DispatchProps & MapProps;
+
+export default class Results extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
     this.state = {
-      correct: props.questions.filter((x) => x.isCorrect).length,
+      correct: props.questions.filter(x => x.isCorrect).length,
     };
   }
 
   componentDidMount() {
     Icon.loadFont();
-    const { updateLifetimeStats, questions } = this.props;
-    const { correct } = this.state;
+    const {updateLifetimeStats, questions} = this.props;
+    const {correct} = this.state;
 
     const info = {
       correct,
@@ -44,12 +61,16 @@ export default class Results extends PureComponent {
 
   render() {
     const {
-      questions, clearLifetimeStats, totalIncorrect, totalCorrect,
+      questions,
+      clearLifetimeStats,
+      totalIncorrect,
+      totalCorrect,
     } = this.props;
 
-    const correctNumber = questions.filter((x) => x.isCorrect).length;
+    const correctNumber = questions.filter(x => x.isCorrect).length;
     const resultsString = `${correctNumber}/${questions.length}`;
-    const lifetimeResultsString = `${totalCorrect}/${totalCorrect + totalIncorrect}`;
+    const lifetimeResultsString = `${totalCorrect}/${totalCorrect +
+      totalIncorrect}`;
 
     return (
       <View style={styles.body}>
@@ -61,10 +82,12 @@ export default class Results extends PureComponent {
         </TouchableOpacity>
         <FlatList
           data={questions}
-          renderItem={({ item }) => renderQuestion(item)}
-          keyExtractor={(item, i) => i}
+          renderItem={({item}) => renderQuestion(item)}
+          keyExtractor={(item, i) => i.toString()}
         />
-        <TouchableOpacity onPress={() => Actions.popTo('home')} style={styles.playAgainContainer}>
+        <TouchableOpacity
+          onPress={() => Actions.popTo('home')}
+          style={styles.playAgainContainer}>
           <Text>Play Again?</Text>
         </TouchableOpacity>
       </View>
@@ -107,11 +130,3 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
-
-Results.propTypes = {
-  questions: PropTypes.arrayOf.isRequired,
-  updateLifetimeStats: PropTypes.func.isRequired,
-  clearLifetimeStats: PropTypes.func.isRequired,
-  totalCorrect: PropTypes.number.isRequired,
-  totalIncorrect: PropTypes.number.isRequired,
-};

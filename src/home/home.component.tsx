@@ -1,15 +1,21 @@
-import React, { PureComponent } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { Actions } from 'react-native-router-flux';
-import PropTypes from 'prop-types';
+import React from 'react';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
+import {Actions} from 'react-native-router-flux';
 
 import Text from '../_shared/text/text.component';
 import colors from '../_shared/colors';
 
+interface State {}
 
-export default class Home extends PureComponent {
+export interface DispatchProps {
+  getQuestions: () => void;
+}
+
+type Props = DispatchProps;
+
+class Home extends React.Component<Props, State> {
   async componentDidMount() {
-    const { getQuestions } = this.props;
+    const {getQuestions} = this.props;
     getQuestions();
   }
 
@@ -31,6 +37,8 @@ export default class Home extends PureComponent {
   }
 }
 
+export default Home;
+
 const styles = StyleSheet.create({
   body: {
     backgroundColor: colors.white,
@@ -50,7 +58,3 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
 });
-
-Home.propTypes = {
-  getQuestions: PropTypes.func.isRequired,
-};

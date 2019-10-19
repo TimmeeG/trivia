@@ -1,46 +1,70 @@
-import React, { PureComponent } from 'react';
-import { StyleSheet, View } from 'react-native';
-import PropTypes from 'prop-types';
+import React, {PureComponent} from 'react';
+import {StyleSheet, View} from 'react-native';
+
 import TrueOrFalse from '../_shared/questionTypes/trueOrFalse.component';
 import Text from '../_shared/text/text.component';
 import colors from '../_shared/colors';
-import { QUESTION_TYPES } from '../_shared/constants';
+import {Item} from '../_shared/questionTypes/trueOrFalse.component';
+import {QUESTION_TYPES} from '../_shared/constants';
 
-export default class Quiz extends PureComponent {
-  constructor() {
-    super();
+export interface Question extends Item {
+  type: string;
+  category: string;
+  isCorrect: boolean;
+}
+
+interface State {
+  questionIndex: number;
+}
+
+interface DispatchProps {
+  updateQuestion: Function;
+  questions: Array<Question>;
+}
+
+type Props = DispatchProps;
+
+export default class Quiz extends PureComponent<Props, State> {
+  constructor(props: Props) {
+    super(props);
     this.state = {
       questionIndex: 0,
     };
     this.answeredWith = this.answeredWith.bind(this);
   }
 
-  answeredWith(answer) {
-    const { questionIndex } = this.state;
-    const { updateQuestion } = this.props;
+  answeredWith(answer: string) {
+    const {questionIndex} = this.state;
+    const {updateQuestion} = this.props;
 
-    updateQuestion({ index: questionIndex, answer });
+    updateQuestion({index: questionIndex, answer});
     this.setState({
       questionIndex: questionIndex + 1,
     });
   }
 
-  selectQuestionType(activeQuestion) {
+  selectQuestionType(activeQuestion: Question) {
     switch (activeQuestion.type) {
       case QUESTION_TYPES.BOOLEAN:
-        return <TrueOrFalse item={activeQuestion} answeredWith={this.answeredWith} />;
+        return (
+          <TrueOrFalse item={activeQuestion} answeredWith={this.answeredWith} />
+        );
       default:
-        return <TrueOrFalse item={activeQuestion} answeredWith={this.answeredWith} />;
+        return (
+          <TrueOrFalse item={activeQuestion} answeredWith={this.answeredWith} />
+        );
     }
   }
 
   render() {
-    const { questionIndex } = this.state;
-    const { questions } = this.props;
+    const {questionIndex} = this.state;
+    const {questions} = this.props;
 
     if (questionIndex === questions.length) {
       return <View />;
     }
+    console.log(questionIndex);
+    console.log(questions);
 
     const activeQuestion = questions[questionIndex];
 
@@ -72,8 +96,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-Quiz.propTypes = {
-  questions: PropTypes.array.isRequired,
-  updateQuestion: PropTypes.func.isRequired,
-};

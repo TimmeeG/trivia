@@ -1,0 +1,10 @@
+{
+  "rules": {
+    "no-console": [true, "log"],
+    "no-any": [true],
+    "max-line-length": [
+      true,
+      { "limit": 80, "ignore-pattern": "^import |^export {(.*?)}" }
+    ]
+  }
+}
