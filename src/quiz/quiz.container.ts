@@ -1,12 +1,16 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import QuizComponent from './quiz.component';
-import { updateQuestion } from './quiz.actions';
+import {updateQuestion} from './quiz.actions';
 
-const mapStateToProps = (state) => state.quizReducer;
+interface State {
+  quizReducer: Object;
+}
+
+const mapStateToProps = (state: State) => state.quizReducer;
 
 const Quiz = connect(
   mapStateToProps,
-  { updateQuestion },
+  {updateQuestion},
 )(QuizComponent);
 
 export default Quiz;

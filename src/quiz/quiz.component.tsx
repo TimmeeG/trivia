@@ -4,18 +4,35 @@ import {StyleSheet, View} from 'react-native';
 import TrueOrFalse from '../_shared/questionTypes/trueOrFalse.component';
 import Text from '../_shared/text/text.component';
 import colors from '../_shared/colors';
+import {Item} from '../_shared/questionTypes/trueOrFalse.component';
 import {QUESTION_TYPES} from '../_shared/constants';
 
-export default class Quiz extends PureComponent {
-  constructor() {
-    super();
+interface Question extends Item {
+  type: string;
+  category: string;
+}
+
+interface State {
+  questionIndex: number;
+}
+
+interface DispatchProps {
+  updateQuestion: Function;
+  questions: Array<Question>;
+}
+
+type Props = DispatchProps;
+
+export default class Quiz extends PureComponent<Props, State> {
+  constructor(props: Props) {
+    super(props);
     this.state = {
       questionIndex: 0,
     };
     this.answeredWith = this.answeredWith.bind(this);
   }
 
-  answeredWith(answer) {
+  answeredWith(answer: string) {
     const {questionIndex} = this.state;
     const {updateQuestion} = this.props;
 
@@ -25,7 +42,7 @@ export default class Quiz extends PureComponent {
     });
   }
 
-  selectQuestionType(activeQuestion) {
+  selectQuestionType(activeQuestion: Question) {
     switch (activeQuestion.type) {
       case QUESTION_TYPES.BOOLEAN:
         return (

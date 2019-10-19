@@ -1,12 +1,40 @@
 import {Actions} from 'react-native-router-flux';
 
-const initialState = {
+interface Questions {
+  userAnswer: string;
+  isCorrect: boolean;
+  correct_answer: string;
+}
+
+interface QuizState {
+  questions: Array<Questions>;
+  loading: boolean;
+  error: string;
+}
+
+interface UpdateQuestionActionPayload {
+  index: number;
+  answer: string;
+}
+interface QuestionFulfilledActionPayload {
+  results: Array<Object>;
+}
+
+interface QuizReducerAction {
+  type: string;
+  payload: QuestionFulfilledActionPayload & UpdateQuestionActionPayload;
+}
+
+const initialState: QuizState = {
   questions: [],
   loading: false,
   error: '',
 };
 
-export const quizReducer = (state = initialState, action) => {
+export const quizReducer = (
+  state = initialState,
+  action: QuizReducerAction,
+) => {
   switch (action.type) {
     default:
       return state;

@@ -6,7 +6,7 @@ const {width} = Dimensions.get('screen');
 
 interface State {}
 
-interface Item {
+export interface Item {
   question: string;
   correct_answer: string;
   incorrect_answers: Array<string>;
