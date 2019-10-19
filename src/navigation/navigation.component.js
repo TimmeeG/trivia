@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Scene, Router, Stack } from 'react-native-router-flux';
-import Home from '../home/home.component';
+import { Home } from '../home/home.container';
 import Quiz from '../quiz/quiz.component';
 import Results from '../results/results.component';
 
