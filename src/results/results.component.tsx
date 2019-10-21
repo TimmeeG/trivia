@@ -77,8 +77,10 @@ export default class Results extends Component<Props, State> {
         <Text style={styles.sectionTitle}>You Scored</Text>
         <Text style={styles.sectionTitle}>{resultsString}</Text>
         <Text style={styles.sectionTitle}>{lifetimeResultsString}</Text>
-        <TouchableOpacity onPress={() => clearLifetimeStats()}>
-          <Text>CLEAR</Text>
+        <TouchableOpacity
+          style={styles.clearContainer}
+          onPress={() => clearLifetimeStats()}>
+          <Text style={styles.clearText}>CLEAR</Text>
         </TouchableOpacity>
         <FlatList
           data={questions}
@@ -104,6 +106,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
     color: colors.black,
+    textAlign: 'center',
+  },
+  clearContainer: {
+    width: '100%',
+  },
+  clearText: {
     textAlign: 'center',
   },
   questionContainer: {
