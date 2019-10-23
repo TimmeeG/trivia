@@ -21,11 +21,11 @@ export default class TrueOrFalse extends PureComponent<Props, State> {
     const possibleAnswers = [...incorrect_answers, correct_answer].sort();
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.flexOne}>
         <View style={styles.view}>
           <Text style={styles.question}>{question}</Text>
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+        <View style={styles.answerContainer}>
           {possibleAnswers.map(x => (
             <TouchableOpacity
               key={`answer-${x}`}
@@ -40,6 +40,9 @@ export default class TrueOrFalse extends PureComponent<Props, State> {
 }
 
 const styles = StyleSheet.create({
+  flexOne: {
+    flex: 1,
+  },
   view: {
     padding: 10,
     margin: 40,
@@ -48,6 +51,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  answerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   question: {
     textAlign: 'center',

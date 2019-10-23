@@ -20,7 +20,7 @@ type Props = DispatchProps & OwnProps;
 class Home extends React.Component<Props, State> {
   async componentDidMount() {
     const { getQuestions, isNotInProgress } = this.props;
-    console.log(isNotInProgress);
+
     if (isNotInProgress) {
       getQuestions();
     } else {
