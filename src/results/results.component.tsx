@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, FlatList } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { Question } from '../quiz/quiz.component';
+import { Question } from '../quiz/quiz.types';
 import { ResultsActionPayload } from './results.reducer';
 import Icon from 'react-native-vector-icons/FontAwesome';
 

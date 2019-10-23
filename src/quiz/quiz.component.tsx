@@ -4,15 +4,8 @@ import { StyleSheet, View } from 'react-native';
 import TrueOrFalse from '../_shared/questionTypes/trueOrFalse.component';
 import Text from '../_shared/text/text.component';
 import colors from '../_shared/colors';
-import { Item } from '../_shared/questionTypes/trueOrFalse.component';
+import { Question } from './quiz.types';
 import { QUESTION_TYPES } from '../_shared/constants';
-
-export interface Question extends Item {
-  type: string;
-  category: string;
-  isAnswered: boolean;
-  isCorrect: boolean;
-}
 
 interface State {
   questionIndex: number;
