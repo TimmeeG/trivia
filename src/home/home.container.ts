@@ -10,10 +10,10 @@ interface State {
 const mapStateToProps = (state: State) => {
   const { questions } = state.quizReducer;
 
-  const isNotInProgress =
-    questions.every(x => x.isAnswered) || questions.every(x => !x.isAnswered);
+  const isInProgress =
+    questions.some(x => x.isAnswered) && !questions.every(x => x.isAnswered);
 
-  return { isNotInProgress };
+  return { isInProgress };
 };
 
 const Home = connect(

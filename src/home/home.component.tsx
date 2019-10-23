@@ -12,18 +12,16 @@ export interface DispatchProps {
 }
 
 interface OwnProps {
-  isNotInProgress: boolean;
+  isInProgress: boolean;
 }
 
 type Props = DispatchProps & OwnProps;
 
 class Home extends React.Component<Props, State> {
   async componentDidMount() {
-    const { getQuestions, isNotInProgress } = this.props;
+    const { getQuestions, isInProgress } = this.props;
 
-    if (isNotInProgress) {
-      getQuestions();
-    } else {
+    if (isInProgress) {
       Alert.alert(
         'Quiz In Progress',
         'You currently have a quiz in progress. Would you like to continue?',
@@ -32,6 +30,8 @@ class Home extends React.Component<Props, State> {
           { text: 'Continue', onPress: () => Actions.quiz() },
         ],
       );
+    } else {
+      getQuestions();
     }
   }
 
