@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, TouchableOpacity, FlatList} from 'react-native';
-import {Actions} from 'react-native-router-flux';
-import {Question} from '../quiz/quiz.component';
-import {ResultsActionPayload} from './results.reducer';
+import React, { Component } from 'react';
+import { StyleSheet, View, TouchableOpacity, FlatList } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import { Question } from '../quiz/quiz.component';
+import { ResultsActionPayload } from './results.reducer';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Text from '../_shared/text/text.component';
@@ -34,6 +34,7 @@ interface State {
 interface DispatchProps {
   updateLifetimeStats: (info: ResultsActionPayload) => void;
   clearLifetimeStats: () => void;
+  getQuestions: () => void;
 }
 
 type Props = DispatchProps & MapProps;
@@ -48,8 +49,8 @@ export default class Results extends Component<Props, State> {
 
   componentDidMount() {
     Icon.loadFont();
-    const {updateLifetimeStats, questions} = this.props;
-    const {correct} = this.state;
+    const { updateLifetimeStats, questions } = this.props;
+    const { correct } = this.state;
 
     const info = {
       correct,
@@ -57,6 +58,14 @@ export default class Results extends Component<Props, State> {
     };
 
     updateLifetimeStats(info);
+  }
+
+  returnToHome() {
+    const { getQuestions } = this.props;
+
+    getQuestions();
+
+    Actions.popTo('home');
   }
 
   render() {
@@ -84,11 +93,11 @@ export default class Results extends Component<Props, State> {
         </TouchableOpacity>
         <FlatList
           data={questions}
-          renderItem={({item}) => renderQuestion(item)}
+          renderItem={({ item }) => renderQuestion(item)}
           keyExtractor={(item, i) => i.toString()}
         />
         <TouchableOpacity
-          onPress={() => Actions.popTo('home')}
+          onPress={() => this.returnToHome()}
           style={styles.playAgainContainer}>
           <Text>Play Again?</Text>
         </TouchableOpacity>

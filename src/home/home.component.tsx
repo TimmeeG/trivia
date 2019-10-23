@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, TouchableOpacity} from 'react-native';
-import {Actions} from 'react-native-router-flux';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 import Text from '../_shared/text/text.component';
 import colors from '../_shared/colors';
@@ -15,7 +15,7 @@ type Props = DispatchProps;
 
 class Home extends React.Component<Props, State> {
   async componentDidMount() {
-    const {getQuestions} = this.props;
+    const { getQuestions } = this.props;
     getQuestions();
   }
 

@@ -1,11 +1,11 @@
-import React, {PureComponent} from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, { PureComponent } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import TrueOrFalse from '../_shared/questionTypes/trueOrFalse.component';
 import Text from '../_shared/text/text.component';
 import colors from '../_shared/colors';
-import {Item} from '../_shared/questionTypes/trueOrFalse.component';
-import {QUESTION_TYPES} from '../_shared/constants';
+import { Item } from '../_shared/questionTypes/trueOrFalse.component';
+import { QUESTION_TYPES } from '../_shared/constants';
 
 export interface Question extends Item {
   type: string;
@@ -34,10 +34,10 @@ export default class Quiz extends PureComponent<Props, State> {
   }
 
   answeredWith(answer: string) {
-    const {questionIndex} = this.state;
-    const {updateQuestion} = this.props;
+    const { questionIndex } = this.state;
+    const { updateQuestion } = this.props;
 
-    updateQuestion({index: questionIndex, answer});
+    updateQuestion({ index: questionIndex, answer });
     this.setState({
       questionIndex: questionIndex + 1,
     });
@@ -57,14 +57,12 @@ export default class Quiz extends PureComponent<Props, State> {
   }
 
   render() {
-    const {questionIndex} = this.state;
-    const {questions} = this.props;
+    const { questionIndex } = this.state;
+    const { questions } = this.props;
 
     if (questionIndex === questions.length) {
       return <View />;
     }
-    console.log(questionIndex);
-    console.log(questions);
 
     const activeQuestion = questions[questionIndex];
 
