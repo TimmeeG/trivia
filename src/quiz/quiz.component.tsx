@@ -10,6 +10,7 @@ import { QUESTION_TYPES } from '../_shared/constants';
 export interface Question extends Item {
   type: string;
   category: string;
+  isAnswered: boolean;
   isCorrect: boolean;
 }
 
@@ -28,7 +29,7 @@ export default class Quiz extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      questionIndex: 0,
+      questionIndex: props.questions.findIndex(x => !x.isAnswered),
     };
     this.answeredWith = this.answeredWith.bind(this);
   }

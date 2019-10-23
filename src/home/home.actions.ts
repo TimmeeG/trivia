@@ -1,7 +1,7 @@
-import {getResponse} from '../_shared/api';
-import {ThunkAction} from 'redux-thunk';
-import {AppState} from 'react-native';
-import {AnyAction} from 'redux';
+import { getResponse } from '../_shared/api';
+import { ThunkAction } from 'redux-thunk';
+import { AppState } from 'react-native';
+import { AnyAction } from 'redux';
 
 export const getQuestions = (): ThunkAction<
   void,
@@ -13,9 +13,9 @@ export const getQuestions = (): ThunkAction<
 
   const baseUrl = 'https://opentdb.com/api.php';
   const queryParams = [
-    {param: 'amount', value: 10},
-    {param: 'difficulty', value: 'hard'},
-    {param: 'type', value: 'boolean'},
+    { param: 'amount', value: 10 },
+    { param: 'difficulty', value: 'hard' },
+    { param: 'type', value: 'boolean' },
   ];
 
   getResponse(baseUrl, queryParams)
@@ -35,7 +35,7 @@ function questionsRejected() {
   };
 }
 
-function questionsFulfilled(response: object) {
+function questionsFulfilled(response: Object) {
   return {
     type: 'QUESTIONS_FULFILLED',
     payload: response,
