@@ -1,19 +1,14 @@
-import React, {PureComponent} from 'react';
-import {View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
+import React, { PureComponent } from 'react';
+import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { Question } from './../../quiz/quiz.types';
 import Text from '../text/text.component';
 
-const {width} = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 
 interface State {}
 
-export interface Item {
-  question: string;
-  correct_answer: string;
-  incorrect_answers: Array<string>;
-}
-
 interface OwnProps {
-  item: Item;
+  item: Question;
   answeredWith: Function;
 }
 
@@ -21,16 +16,16 @@ type Props = OwnProps;
 
 export default class TrueOrFalse extends PureComponent<Props, State> {
   render() {
-    const {item, answeredWith} = this.props;
-    const {question, correct_answer, incorrect_answers} = item;
+    const { item, answeredWith } = this.props;
+    const { question, correct_answer, incorrect_answers } = item;
     const possibleAnswers = [...incorrect_answers, correct_answer].sort();
 
     return (
-      <View style={{flex: 1}}>
+      <View style={styles.flexOne}>
         <View style={styles.view}>
           <Text style={styles.question}>{question}</Text>
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+        <View style={styles.answerContainer}>
           {possibleAnswers.map(x => (
             <TouchableOpacity
               key={`answer-${x}`}
@@ -45,6 +40,9 @@ export default class TrueOrFalse extends PureComponent<Props, State> {
 }
 
 const styles = StyleSheet.create({
+  flexOne: {
+    flex: 1,
+  },
   view: {
     padding: 10,
     margin: 40,
@@ -53,6 +51,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  answerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   question: {
     textAlign: 'center',

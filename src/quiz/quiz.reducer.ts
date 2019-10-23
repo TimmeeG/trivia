@@ -1,14 +1,5 @@
-import {Actions} from 'react-native-router-flux';
-
-interface Question {
-  userAnswer: string;
-  isCorrect: boolean;
-  correct_answer: string;
-  question: string;
-  incorrect_answers: Array<string>;
-  type: string;
-  category: string;
-}
+import { Actions } from 'react-native-router-flux';
+import { Question } from './quiz.types';
 
 export interface QuizState {
   questions: Array<Question>;
@@ -21,7 +12,7 @@ interface UpdateQuestionActionPayload {
   answer: string;
 }
 interface QuestionFulfilledActionPayload {
-  results: Array<Object>;
+  results: Array<Question>;
 }
 
 interface QuizReducerAction {
@@ -43,7 +34,7 @@ export const quizReducer = (
     default:
       return state;
     case 'CLEAR_QUESTIONS':
-      return {...initialState};
+      return { ...initialState };
     case 'QUESTIONS_REQUESTED':
       return {
         ...state,
@@ -57,6 +48,12 @@ export const quizReducer = (
         emailError: 'Error',
       };
     case 'QUESTIONS_FULFILLED': {
+      const questions = action.payload.results;
+      questions.map(x => {
+        x.isAnswered = false;
+        return x;
+      });
+
       return {
         ...state,
         loading: false,
@@ -65,11 +62,12 @@ export const quizReducer = (
       };
     }
     case 'UPDATE_QUESTION': {
-      const {payload} = action;
-      const {index, answer} = payload;
+      const { payload } = action;
+      const { index, answer } = payload;
 
       const newQuestions = state.questions;
       newQuestions[index].userAnswer = answer;
+      newQuestions[index].isAnswered = true;
       newQuestions[index].isCorrect =
         answer === newQuestions[index].correct_answer;
 

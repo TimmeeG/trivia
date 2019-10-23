@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, TouchableOpacity} from 'react-native';
-import {Actions} from 'react-native-router-flux';
+import { StyleSheet, View, TouchableOpacity, Alert } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 import Text from '../_shared/text/text.component';
 import colors from '../_shared/colors';
@@ -11,12 +11,28 @@ export interface DispatchProps {
   getQuestions: () => void;
 }
 
-type Props = DispatchProps;
+interface OwnProps {
+  isInProgress: boolean;
+}
+
+type Props = DispatchProps & OwnProps;
 
 class Home extends React.Component<Props, State> {
   async componentDidMount() {
-    const {getQuestions} = this.props;
-    getQuestions();
+    const { getQuestions, isInProgress } = this.props;
+
+    if (isInProgress) {
+      Alert.alert(
+        'Quiz In Progress',
+        'You currently have a quiz in progress. Would you like to continue?',
+        [
+          { text: 'No', onPress: () => getQuestions() },
+          { text: 'Continue', onPress: () => Actions.quiz() },
+        ],
+      );
+    } else {
+      getQuestions();
+    }
   }
 
   render() {
