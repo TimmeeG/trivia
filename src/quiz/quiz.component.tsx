@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 
 import TrueOrFalse from '../_shared/questionTypes/trueOrFalse.component';
 import Text from '../_shared/text/text.component';
 import colors from '../_shared/colors';
 import { Question } from './quiz.types';
 import { QUESTION_TYPES } from '../_shared/constants';
+import { Actions } from 'react-native-router-flux';
 
 interface State {
   questionIndex: number;
@@ -59,6 +60,17 @@ export default class Quiz extends PureComponent<Props, State> {
     }
 
     const activeQuestion = questions[questionIndex];
+
+    if (!activeQuestion) {
+      return (
+        <View style={styles.body}>
+          <View style={styles.categoryContainer}>
+            <Text>Error</Text>
+            <Button title="Return to Home" onPress={Actions.pop} />
+          </View>
+        </View>
+      );
+    }
 
     return (
       <View style={styles.body}>
