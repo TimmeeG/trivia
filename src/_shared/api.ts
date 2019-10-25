@@ -17,7 +17,6 @@ export const getResponse = (
   return axios
     .get(url)
     .then(response => {
-      console.log(response);
       if (response.data.response_code === 0) {
         return response.data;
       } else {
